@@ -12,6 +12,6 @@ final class PassLibraryTests: XCTestCase {
     }
 
     static var allTests = [
-        ("testExample", testExample),
+        ("testExample", testExample)
     ]
 }
