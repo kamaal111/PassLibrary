@@ -1,0 +1,78 @@
+client:
+  name: basic
+tools: {}
+targets:
+  "PackageStructure": ["<PackageStructure>"]
+  "PassLibrary-debug.module": ["<PassLibrary-debug.module>"]
+  "PassLibraryPackageTests-debug.test": ["<PassLibraryPackageTests-debug.test>"]
+  "PassLibraryTests-debug.module": ["<PassLibraryTests-debug.module>"]
+  "main": ["<PassLibrary-debug.module>"]
+  "test": ["<PassLibrary-debug.module>","<PassLibraryPackageTests-debug.test>","<PassLibraryTests-debug.module>"]
+default: "main"
+nodes:
+  "/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/Sources/PassLibrary/":
+    is-directory-structure: true
+  "/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/Tests/PassLibraryTests/":
+    is-directory-structure: true
+commands:
+  "<PassLibrary-debug.module>":
+    tool: phony
+    inputs: ["/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibrary.build/Networker.swift.o","/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibrary.build/PassLibrary.swift.o","/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibrary.swiftmodule"]
+    outputs: ["<PassLibrary-debug.module>"]
+
+  "<PassLibraryPackageTests-debug.test>":
+    tool: phony
+    inputs: ["/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibraryPackageTests.xctest/Contents/MacOS/PassLibraryPackageTests"]
+    outputs: ["<PassLibraryPackageTests-debug.test>"]
+
+  "<PassLibraryTests-debug.module>":
+    tool: phony
+    inputs: ["/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibraryTests.build/PassLibraryTests.swift.o","/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibraryTests.build/XCTestManifests.swift.o","/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibraryTests.swiftmodule"]
+    outputs: ["<PassLibraryTests-debug.module>"]
+
+  "C.PassLibrary-debug.module":
+    tool: swift-compiler
+    inputs: ["/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/Sources/PassLibrary/Networker.swift","/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/Sources/PassLibrary/PassLibrary.swift"]
+    outputs: ["/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibrary.build/Networker.swift.o","/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibrary.build/PassLibrary.swift.o","/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibrary.swiftmodule"]
+    executable: "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    module-name: "PassLibrary"
+    module-output-path: "/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibrary.swiftmodule"
+    import-paths: ["/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug"]
+    temps-path: "/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibrary.build"
+    objects: ["/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibrary.build/Networker.swift.o","/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibrary.build/PassLibrary.swift.o"]
+    other-args: ["-target","x86_64-apple-macosx10.10","-swift-version","5","-enable-batch-mode","-index-store-path","/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/index/store","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-Onone","-enable-testing","-g","-j4","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/ModuleCache","-parseable-output","-emit-objc-header","-emit-objc-header-path","/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibrary.build/PassLibrary-Swift.h","-color-diagnostics"]
+    sources: ["/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/Sources/PassLibrary/Networker.swift","/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/Sources/PassLibrary/PassLibrary.swift"]
+    is-library: true
+    enable-whole-module-optimization: false
+    num-threads: 4
+
+  "C.PassLibraryPackageTests-debug.test":
+    tool: shell
+    inputs: ["/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibrary.build/Networker.swift.o","/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibrary.build/PassLibrary.swift.o","/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibraryTests.build/PassLibraryTests.swift.o","/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibraryTests.build/XCTestManifests.swift.o"]
+    outputs: ["/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibraryPackageTests.xctest/Contents/MacOS/PassLibraryPackageTests"]
+    description: "Linking ./.build/x86_64-apple-macosx/debug/PassLibraryPackageTests.xctest/Contents/MacOS/PassLibraryPackageTests"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug","-o","/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibraryPackageTests.xctest/Contents/MacOS/PassLibraryPackageTests","-module-name","PassLibraryPackageTests","-Xlinker","-bundle","-Xlinker","-rpath","-Xlinker","@loader_path/../../../","@/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibraryPackageTests.product/Objects.LinkFileList","-Xlinker","-rpath","-Xlinker","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx","-target","x86_64-apple-macosx10.10","-Xlinker","-add_ast_path","-Xlinker","/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibrary.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibraryTests.swiftmodule","-L","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib"]
+
+  "C.PassLibraryTests-debug.module":
+    tool: swift-compiler
+    inputs: ["/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/Tests/PassLibraryTests/PassLibraryTests.swift","/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/Tests/PassLibraryTests/XCTestManifests.swift","/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibrary.swiftmodule"]
+    outputs: ["/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibraryTests.build/PassLibraryTests.swift.o","/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibraryTests.build/XCTestManifests.swift.o","/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibraryTests.swiftmodule"]
+    executable: "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    module-name: "PassLibraryTests"
+    module-output-path: "/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibraryTests.swiftmodule"
+    import-paths: ["/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug"]
+    temps-path: "/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibraryTests.build"
+    objects: ["/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibraryTests.build/PassLibraryTests.swift.o","/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibraryTests.build/XCTestManifests.swift.o"]
+    other-args: ["-target","x86_64-apple-macosx10.10","-swift-version","5","-enable-batch-mode","-index-store-path","/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/index/store","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-Onone","-enable-testing","-g","-j4","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/ModuleCache","-parseable-output","-color-diagnostics"]
+    sources: ["/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/Tests/PassLibraryTests/PassLibraryTests.swift","/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/Tests/PassLibraryTests/XCTestManifests.swift"]
+    is-library: true
+    enable-whole-module-optimization: false
+    num-threads: 4
+
+  "PackageStructure":
+    tool: package-structure-tool
+    inputs: ["/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/Sources/PassLibrary/","/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/Tests/PassLibraryTests/","/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/Package.swift","/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/Package.resolved"]
+    outputs: ["<PackageStructure>"]
+    description: "Planning build"
+    allow-missing-inputs: true
+

@@ -1,0 +1,4 @@
+module PassLibrary {
+    header "/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/.build/x86_64-apple-macosx/debug/PassLibrary.build/PassLibrary-Swift.h"
+    requires objc
+}
