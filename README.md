@@ -1,6 +1,8 @@
 # PassLibrary
 
-A description of this package.
+A Library to open PKPasses
+
+![CI](https://github.com/kamaal111/PassLibrary/workflows/CI/badge.svg?branch=release%2F1.0.0)
 
 ## Usage
 
