@@ -32,7 +32,7 @@ public final class PassLibrary {
         }
     }
 
-    public func pressAddPassButtonAction(window: UIWindow?, pkpassData: Data) throws {
+    public func presentAddPKPassViewController(window: UIWindow?, pkpassData: Data) throws {
         var addPKPassViewController: PKAddPassesViewController?
         do {
             addPKPassViewController = try self.setupPKAddPassViewController(data: pkpassData)
