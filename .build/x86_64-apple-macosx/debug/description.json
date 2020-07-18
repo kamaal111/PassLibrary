@@ -1,0 +1,25 @@
+{
+  "allExecutables" : [
+
+  ],
+  "builtTestProducts" : [
+    {
+      "packageName" : "PassLibrary",
+      "productName" : "PassLibraryPackageTests",
+      "testBinary" : "\/Users\/kamaalfarah\/Projects\/GitHub\/swift_packages\/PassLibrary\/.build\/x86_64-apple-macosx\/debug\/PassLibraryPackageTests.xctest\/Contents\/MacOS\/PassLibraryPackageTests"
+    }
+  ],
+  "copyCommands" : {
+
+  },
+  "rootExecutables" : [
+
+  ],
+  "swiftTargetMap" : {
+    "C.PassLibrary-debug.module" : "PassLibrary",
+    "C.PassLibraryTests-debug.module" : "PassLibraryTests"
+  },
+  "testDiscoveryCommands" : {
+
+  }
+}
