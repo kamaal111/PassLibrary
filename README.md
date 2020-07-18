@@ -2,7 +2,13 @@
 
 A Library to open PKPasses
 
-![CI](https://github.com/kamaal111/PassLibrary/workflows/CI/badge.svg?branch=release%2F1.0.0)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/93f62ad927354005bace45e6bff5346f)](https://www.codacy.com/manual/kamaal111/PassLibrary?utm_source=github.com&utm_medium=referral&utm_content=kamaal111/PassLibrary&utm_campaign=Badge_Grade)
+
+| branch  | status                                                                                        |
+| ------- | --------------------------------------------------------------------------------------------- |
+| master  | ![CI](https://github.com/kamaal111/PassLibrary/workflows/CI/badge.svg?branch=master)          |
+| develop | ![CI](https://github.com/kamaal111/PassLibrary/workflows/CI/badge.svg?branch=develop)         |
+| v1.0.0  | ![CI](https://github.com/kamaal111/PassLibrary/workflows/CI/badge.svg?branch=release%2F1.0.0) |
 
 ## Usage
 
