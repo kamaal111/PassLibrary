@@ -12,11 +12,11 @@ import PassKit
 public final class AddPKPassHandler: ObservableObject {
     @Published public var showAddPassView = false
     @Published public var pass: PKPass?
-    @Published public var failures: Error? {
+    @Published public var lastFailures: Error? {
         didSet {
             #if DEBUG
-            if let failures = self.failures {
-                print("AddPKPassHandler ERROR:", failures)
+            if let lastFailures = self.lastFailures {
+                print("AddPKPassHandler ERROR:", lastFailures)
             }
             #endif
         }
@@ -34,16 +34,16 @@ public final class AddPKPassHandler: ObservableObject {
         self.networker.getPKPass(from: urlPath) { (result: Result<Data, Error>) in
             switch result {
             case .failure(let error):
-                self.failures = error
+                self.lastFailures = error
             case .success(let data):
                 var pass: PKPass?
                 do {
                     pass = try PKPass(data: data)
                 } catch {
-                    self.failures = error
+                    self.lastFailures = error
                 }
                 guard pass != nil else {
-                    self.failures = AddPKPassHandlerErrors.failedToUnwrap(message: "Failed to unwrap value of pass")
+                    self.lastFailures = AddPKPassHandlerErrors.failedToUnwrap(message: "Failed to unwrap value of pass")
                     return
                 }
                 DispatchQueue.main.async {
