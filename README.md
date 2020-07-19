@@ -20,13 +20,36 @@ A Library to open PKPasses
 
 ## Usage
 
+### SwiftUI
+
+```swift
+import PassLibrary
+
+struct ContentView: View {
+    @ObservedObject
+    private var addPKPassHandler = AddPKPassHandler() // From PassLibrary
+
+    var body: some View {
+        VStack {
+            Button(action: {
+                let urlPath = "https://server.api/pass/123"
+                self.addPKPassHandler.getAndSetPKPass(from: urlPath)
+            }) {
+                Text("Wallet button")
+            }
+        }
+        .addPKPassSheet(isShowing: self.$addPKPassHandler.showAddPassView, pass: self.addPKPassHandler.pass) // From PassLibrary
+    }
+}
+```
+
 ### With App Lifecycle
 
 ```swift
 import PassLibrary
 
 func action() {
-    let passLibrary = PassLibrary()
+    let passLibrary = PassLibrary() // From PassLibrary
     let urlPath = "https://server.api/pass/123"
     passLibrary.getRemotePKPass(from: urlPath) { (result: Result<Data, Error>) in
         switch result {
@@ -59,7 +82,7 @@ func action() {
 import PassLibrary
 
 func action() {
-    let passLibrary = PassLibrary()
+    let passLibrary = PassLibrary() // From PassLibrary
     let urlPath = "https://server.api/pass/123"
     passLibrary.getRemotePKPass(from: urlPath) { (result: Result<Data, Error>) in
         switch result {
@@ -88,7 +111,7 @@ func action() {
 import PassLibrary
 
 func action() {
-    let passLibrary = PassLibrary()
+    let passLibrary = PassLibrary() // From PassLibrary
     let urlPath = "https://server.api/pass/123"
     passLibrary.getRemotePKPass(from: urlPath) { (result: Result<Data, Error>) in
         switch result {
@@ -126,7 +149,7 @@ import UIKit
 @objc(RNPassLibrary)
 class RNPassLibrary: NSObject {
 
-    private let passLibrary = PassLibrary()
+    private let passLibrary = PassLibrary() // From PassLibrary
 
     @objc
     func constantsToExport() -> [AnyHashable: Any]! {
