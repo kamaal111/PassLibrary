@@ -125,42 +125,42 @@ import UIKit
 @objc(RNPassLibrary)
 class RNPassLibrary: NSObject {
 
-  private let passLibrary = PassLibrary()
+    private let passLibrary = PassLibrary()
 
-  @objc
-  func constantsToExport() -> [AnyHashable: Any]! {
-      return ["name": "RNPassLibrary"]
-  }
+    @objc
+    func constantsToExport() -> [AnyHashable: Any]! {
+        return ["name": "RNPassLibrary"]
+    }
 
-  @objc
-  func getRemotePKPassAndPresentPKPassView(_ url: String,
-                                           resolver resolve: @escaping RCTPromiseResolveBlock,
-                                           rejecter reject: @escaping RCTPromiseRejectBlock) {
-      self.passLibrary.getRemotePKPass(from: url) { (result: Result<Data, Error>) in
-          switch result {
-          case .failure(let failure):
-            reject("error", failure.localizedDescription, NSError(domain: failure.localizedDescription, code: 400, userInfo: nil))
-          case .success(let pkpassData):
-              DispatchQueue.main.async {
-                  guard let keyWindow = UIApplication.shared.keyWindow else {
-                    reject("error", "Could not get key window", NSError(domain: "Could not get key window", code: 400, userInfo: nil))
-                      return
-                  }
-                  do {
-                    try self.passLibrary.presentAddPKPassViewController(window: keyWindow, pkpassData: pkpassData)
-                      resolve(true)
-                  } catch {
-                    reject("error", error.localizedDescription, NSError(domain: error.localizedDescription, code: 400, userInfo: nil))
-                  }
-              }
-          }
-      }
-  }
+    @objc
+    func getRemotePKPassAndPresentPKPassView(_ url: String,
+                                            resolver resolve: @escaping RCTPromiseResolveBlock,
+                                            rejecter reject: @escaping RCTPromiseRejectBlock) {
+        self.passLibrary.getRemotePKPass(from: url) { (result: Result<Data, Error>) in
+            switch result {
+            case .failure(let failure):
+                reject("error", failure.localizedDescription, NSError(domain: failure.localizedDescription, code: 400, userInfo: nil))
+            case .success(let pkpassData):
+                DispatchQueue.main.async {
+                    guard let keyWindow = UIApplication.shared.keyWindow else {
+                        reject("error", "Could not get key window", NSError(domain: "Could not get key window", code: 400, userInfo: nil))
+                        return
+                    }
+                    do {
+                        try self.passLibrary.presentAddPKPassViewController(window: keyWindow, pkpassData: pkpassData)
+                        resolve(true)
+                    } catch {
+                        reject("error", error.localizedDescription, NSError(domain: error.localizedDescription, code: 400, userInfo: nil))
+                    }
+                }
+            }
+        }
+    }
 
-  @objc
-  static func requiresMainQueueSetup() -> Bool {
-      return true
-  }
+    @objc
+    static func requiresMainQueueSetup() -> Bool {
+        return true
+    }
 
 }
 ```
