@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.platforms    = { :ios => "11.0" }
   s.source       = { :git => "https://github.com/kamaal111/PassLibrary.git", :tag => "#{s.version}" }
 
-  s.source_files = "Sources/**/*, react-native-pass-library/PassLibraryBridge.m"
+  s.source_files = "Sources/**/*.swift, react-native-pass-library/**/*.{m,swift}"
   s.requires_arc = true
 
   s.dependency "React"
