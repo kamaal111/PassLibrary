@@ -1,5 +1,16 @@
-import { NativeModules } from 'react-native';
+import { NativeModules, Platform } from "react-native";
 
-const { ReactNativePassLibrary } = NativeModules;
+const { PassLibrary } = NativeModules;
 
-export default ReactNativePassLibrary;
+const passLibrary = () => {
+  switch (Platform.OS) {
+    case "ios":
+      return PassLibrary;
+    default:
+      return {};
+  }
+};
+
+const library = passLibrary();
+
+export default library;

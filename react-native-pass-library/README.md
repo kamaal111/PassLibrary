@@ -1,17 +1,17 @@
-# react-native-react-native-pass-library
+# react-native-pass-library
 
 ## Getting started
 
-`$ npm install react-native-react-native-pass-library --save`
+`$ npm install react-native-pass-library --save`
 
 ### Mostly automatic installation
 
-`$ react-native link react-native-react-native-pass-library`
+`$ react-native link react-native-pass-library`
 
 ## Usage
 ```javascript
-import ReactNativePassLibrary from 'react-native-react-native-pass-library';
+import PassLibrary from 'react-native-pass-library';
 
 // TODO: What to do with the module?
-ReactNativePassLibrary;
+PassLibrary;
 ```
