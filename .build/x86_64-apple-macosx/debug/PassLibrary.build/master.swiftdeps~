@@ -1,6 +1,0 @@
-version: "Apple Swift version 5.2.4 (swiftlang-1103.0.32.9 clang-1103.0.32.53)"
-options: "4586aa7dfaa66b6b4f6e5bad87827c24"
-build_time: [1595082721, 92543000]
-inputs:
-  "/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/Sources/PassLibrary/Networker.swift": !dirty [1595078541, 703508935]
-  "/Users/kamaalfarah/Projects/GitHub/swift_packages/PassLibrary/Sources/PassLibrary/PassLibrary.swift": !dirty [1595082294, 861237372]
