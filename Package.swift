@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "PassLibrary",
     platforms: [
-        .iOS(.v8)
+        .iOS(.v9)
     ],
     products: [
         .library(
@@ -17,9 +17,9 @@ let package = Package(
     targets: [
         .target(
             name: "PassLibrary",
-            dependencies: [])
+            dependencies: []),
         .testTarget(
             name: "PassLibraryTests",
-            dependencies: ["PassLibrary"])
+            dependencies: ["PassLibrary"]),
     ]
 )
