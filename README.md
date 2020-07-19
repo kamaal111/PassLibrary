@@ -14,8 +14,8 @@ A Library to open PKPasses
 
 ### Swift Package Manager
 
-    - In your XCode Project select File > Swift Packages > Add Package Dependency and enter `https://github.com/kamaal111/PassLibrary`
-    - Select desired version
+- In your XCode Project select File > Swift Packages > Add Package Dependency and enter `https://github.com/kamaal111/PassLibrary`
+- Select desired version
 
 ## Usage
 
@@ -109,7 +109,97 @@ func action() {
 }
 ```
 
-```code
+### With React-Native
+
+#### Preparation
+
+- From XCode create a new Swift file in your project directory. Name it `RNPassLibrary`.
+- If you have not created a Objective-C header before, a pop up will appear. Select `Create Bridging Header`.
+- Add `#import <React/RCTBridgeModule.h>` in your `Bridging Header` file.
+- In `RNPassLibrary.swift` add the following code:
+
+```swift
+import PassLibrary
+import UIKit
+
+@objc(RNPassLibrary)
+class RNPassLibrary: NSObject {
+
+  private let passLibrary = PassLibrary()
+
+  @objc
+  func constantsToExport() -> [AnyHashable: Any]! {
+      return ["name": "RNPassLibrary"]
+  }
+
+  @objc
+  func getRemotePKPassAndPresentPKPassView(_ url: String,
+                                           resolver resolve: @escaping RCTPromiseResolveBlock,
+                                           rejecter reject: @escaping RCTPromiseRejectBlock) {
+      self.passLibrary.getRemotePKPass(from: url) { (result: Result<Data, Error>) in
+          switch result {
+          case .failure(let failure):
+            reject("error", failure.localizedDescription, NSError(domain: failure.localizedDescription, code: 400, userInfo: nil))
+          case .success(let pkpassData):
+              DispatchQueue.main.async {
+                  guard let keyWindow = UIApplication.shared.keyWindow else {
+                    reject("error", "Could not get key window", NSError(domain: "Could not get key window", code: 400, userInfo: nil))
+                      return
+                  }
+                  do {
+                    try self.passLibrary.presentAddPKPassViewController(window: keyWindow, pkpassData: pkpassData)
+                      resolve(true)
+                  } catch {
+                    reject("error", error.localizedDescription, NSError(domain: error.localizedDescription, code: 400, userInfo: nil))
+                  }
+              }
+          }
+      }
+  }
+
+  @objc
+  static func requiresMainQueueSetup() -> Bool {
+      return true
+  }
+
+}
+```
+
+- Create a new Objective-C file. Name it `RNPassLibrary`.
+- In `RNPassLibrary.m` add the following code:
+
+```objectivec
+#import <React/RCTBridgeModule.h>
+
+@interface RCT_EXTERN_MODULE(RNPassLibrary, NSObject)
+
+RCT_EXTERN_METHOD(
+    getRemotePKPassAndPresentPKPassView: (NSString *)string
+    resolver:(RCTPromiseResolveBlock)resolve
+    rejecter:(RCTPromiseRejectBlock)reject
+    )
+
+@end
+```
+
+#### Implementation
+
+```javascript
+import { NativeModules } from "react-native";
+
+const { RNPassLibrary } = NativeModules;
+
+const onPress = async () => {
+  try {
+    const url = "https://server.api/pass/123";
+    const hi = await RNPassLibrary.getRemotePKPassAndPresentPKPassView(url);
+  } catch (error) {
+    // Handle thrown error appropriately
+    console.log("error", error);
+  }
+};
+```
+
 MIT License
 
 Copyright (c) 2020 Kamaal Farah
@@ -131,4 +221,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-```
