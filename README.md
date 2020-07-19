@@ -214,10 +214,11 @@ import { NativeModules, Platform } from "react-native";
 const { RNPassLibrary } = NativeModules;
 
 const onPress = async () => {
-  if (Platform.OS === "ios") {
+  const isIOS = Platform.OS === "ios";
+  if (isIOS) {
     try {
       const url = "https://server.api/pass/123";
-      const hi = await RNPassLibrary.getRemotePKPassAndPresentPKPassView(url);
+      await RNPassLibrary.getRemotePKPassAndPresentPKPassView(url);
     } catch (error) {
       // Handle thrown error appropriately
       console.log("error", error);
