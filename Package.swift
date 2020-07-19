@@ -17,9 +17,9 @@ let package = Package(
     targets: [
         .target(
             name: "PassLibrary",
-            dependencies: [])
+            dependencies: []),
         .testTarget(
             name: "PassLibraryTests",
-            dependencies: ["PassLibrary"])
+            dependencies: ["PassLibrary"]),
     ]
 )
