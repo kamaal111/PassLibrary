@@ -185,17 +185,19 @@ RCT_EXTERN_METHOD(
 #### Implementation
 
 ```javascript
-import { NativeModules } from "react-native";
+import { NativeModules, Platform } from "react-native";
 
 const { RNPassLibrary } = NativeModules;
 
 const onPress = async () => {
-  try {
-    const url = "https://server.api/pass/123";
-    const hi = await RNPassLibrary.getRemotePKPassAndPresentPKPassView(url);
-  } catch (error) {
-    // Handle thrown error appropriately
-    console.log("error", error);
+  if (Platform.OS === "ios") {
+    try {
+      const url = "https://server.api/pass/123";
+      const hi = await RNPassLibrary.getRemotePKPassAndPresentPKPassView(url);
+    } catch (error) {
+      // Handle thrown error appropriately
+      console.log("error", error);
+    }
   }
 };
 ```
