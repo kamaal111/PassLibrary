@@ -8,8 +8,8 @@ A Library to open PKPasses
 | ------- | --------------------------------------------------------------------------------------------- |
 | master  | ![CI](https://github.com/kamaal111/PassLibrary/workflows/CI/badge.svg?branch=master)          |
 | develop | ![CI](https://github.com/kamaal111/PassLibrary/workflows/CI/badge.svg?branch=develop)         |
-| v1.0.0  | ![CI](https://github.com/kamaal111/PassLibrary/workflows/CI/badge.svg?branch=release%2F1.0.0) |
 | v1.1.0  | ![CI](https://github.com/kamaal111/PassLibrary/workflows/CI/badge.svg?branch=release%2F1.1.0) |
+| v1.0.0  | ![CI](https://github.com/kamaal111/PassLibrary/workflows/CI/badge.svg?branch=release%2F1.0.0) |
 
 ## Installation
 
@@ -39,39 +39,6 @@ struct ContentView: View {
             }
         }
         .addPKPassSheet(isShowing: self.$addPKPassHandler.showAddPassView, pass: self.addPKPassHandler.pass) // From PassLibrary
-    }
-}
-```
-
-### With App Lifecycle
-
-```swift
-import PassLibrary
-
-func action() {
-    let passLibrary = PassLibrary() // From PassLibrary
-    let urlPath = "https://server.api/pass/123"
-    passLibrary.getRemotePKPass(from: urlPath) { (result: Result<Data, Error>) in
-        switch result {
-        case .failure(let failure):
-            // Handle failure appropriately
-            print(failure)
-        case .success(let pkpassData):
-            DispatchQueue.main.async {
-                let keyWindow = UIApplication.shared.connectedScenes
-                    .filter({$0.activationState == .foregroundActive})
-                    .map({$0 as? UIWindowScene})
-                    .compactMap({$0})
-                    .first?.windows
-                    .filter({$0.isKeyWindow}).first
-                do {
-                    try passLibrary.presentAddPKPassViewController(window: keyWindow, pkpassData: pkpassData)
-                } catch {
-                    // Handle thrown error appropriately
-                    print(error.localizedDescription)
-                }
-            }
-        }
     }
 }
 ```
