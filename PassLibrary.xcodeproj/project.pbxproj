@@ -140,9 +140,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_19 /* Build configuration list for PBXNativeTarget "PassLibrary" */;
 			buildPhases = (
+				608EC82024C3475300A3237E /* ShellScript */,
 				OBJ_22 /* Sources */,
 				OBJ_25 /* Frameworks */,
-				608EC82024C3475300A3237E /* ShellScript */,
 			);
 			buildRules = (
 			);

@@ -8,8 +8,12 @@ import (
 	"strings"
 )
 
+const shell = "/bin/sh"
+const gitVersionScript = "Scripts/ChangeVersion/git-version.sh"
+const xCodeProjFilePath = "PassLibrary.xcodeproj/project.pbxproj"
+
 func main() {
-	gitBranchBytes, err := exec.Command("/bin/sh", "Scripts/ChangeVersion/git-version.sh").Output()
+	gitBranchBytes, err := exec.Command(shell, gitVersionScript).Output()
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -18,7 +22,6 @@ func main() {
 	isReleaseBranch := splittedBranchName[0] == "release"
 	if isReleaseBranch {
 		versionNumber := splittedBranchName[1]
-		xCodeProjFilePath := "PassLibrary.xcodeproj/project.pbxproj"
 		xCodeProjBytes, err := ioutil.ReadFile(xCodeProjFilePath)
 		if err != nil {
 			log.Fatalln(err)
@@ -33,12 +36,12 @@ func main() {
 				for i := 0; i < amountOfTabs; i++ {
 					tabsToAdd += oneTab
 				}
-				newString := tabsToAdd + "MARKETING_VERSION = " + versionNumber + ";\n"
+				newString := tabsToAdd + "MARKETING_VERSION = " + versionNumber + ";"
 				if lines[lineNumber] != newString {
+					fmt.Println(lines[lineNumber], "in to:")
+					fmt.Println(newString)
 					lines[lineNumber] = newString
 					hasChanges = true
-					fmt.Println("Changed", lines[lineNumber], "in to:")
-					fmt.Println(newString)
 				}
 
 			}
