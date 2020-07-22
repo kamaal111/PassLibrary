@@ -8,6 +8,7 @@ A Library to open PKPasses
 | ------- | --------------------------------------------------------------------------------------------- |
 | master  | ![CI](https://github.com/kamaal111/PassLibrary/workflows/CI/badge.svg?branch=master)          |
 | develop | ![CI](https://github.com/kamaal111/PassLibrary/workflows/CI/badge.svg?branch=develop)         |
+| v2.0.0  | ![CI](https://github.com/kamaal111/PassLibrary/workflows/CI/badge.svg?branch=release%2F2.0.0) |
 | v1.1.0  | ![CI](https://github.com/kamaal111/PassLibrary/workflows/CI/badge.svg?branch=release%2F1.1.0) |
 | v1.0.0  | ![CI](https://github.com/kamaal111/PassLibrary/workflows/CI/badge.svg?branch=release%2F1.0.0) |
 
@@ -19,29 +20,6 @@ A Library to open PKPasses
 - Select desired version
 
 ## Usage
-
-### SwiftUI
-
-```swift
-import PassLibrary
-
-struct ContentView: View {
-    @ObservedObject
-    private var addPKPassHandler = AddPKPassHandler() // From PassLibrary
-
-    var body: some View {
-        VStack {
-            Button(action: {
-                let urlPath = "https://server.api/pass/123"
-                self.addPKPassHandler.getAndSetPKPass(from: urlPath)
-            }) {
-                Text("Wallet button")
-            }
-        }
-        .addPKPassSheet(isShowing: self.$addPKPassHandler.showAddPassView, pass: self.addPKPassHandler.pass) // From PassLibrary
-    }
-}
-```
 
 ### With SceneDelegate
 
