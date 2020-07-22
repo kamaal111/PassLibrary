@@ -20,29 +20,6 @@ A Library to open PKPasses
 
 ## Usage
 
-### SwiftUI
-
-```swift
-import PassLibrary
-
-struct ContentView: View {
-    @ObservedObject
-    private var addPKPassHandler = AddPKPassHandler() // From PassLibrary
-
-    var body: some View {
-        VStack {
-            Button(action: {
-                let urlPath = "https://server.api/pass/123"
-                self.addPKPassHandler.getAndSetPKPass(from: urlPath)
-            }) {
-                Text("Wallet button")
-            }
-        }
-        .addPKPassSheet(isShowing: self.$addPKPassHandler.showAddPassView, pass: self.addPKPassHandler.pass) // From PassLibrary
-    }
-}
-```
-
 ### With SceneDelegate
 
 ```swift
