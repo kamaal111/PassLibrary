@@ -1,6 +1,6 @@
 # PassLibrary
 
-A Library to open PKPasses
+A library to open PKPasses
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/93f62ad927354005bace45e6bff5346f)](https://www.codacy.com/manual/kamaal111/PassLibrary?utm_source=github.com&utm_medium=referral&utm_content=kamaal111/PassLibrary&utm_campaign=Badge_Grade)
 
