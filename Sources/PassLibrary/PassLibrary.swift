@@ -7,17 +7,18 @@
 
 import PassKit
 import UIKit
+import XiphiasNet
 
 public final class PassLibrary {
 
-    private let networker: Networkable
+    private let networker: XiphiasNetable
 
-    internal init(networker: Networkable = Networker()) {
+    internal init(networker: XiphiasNetable = XiphiasNet()) {
         self.networker = networker
     }
 
     public init() {
-        self.networker = Networker()
+        self.networker = XiphiasNet()
     }
 
     public enum PassLibraryError: Error {
@@ -26,13 +27,17 @@ public final class PassLibrary {
         case failedToLoadRootVC(message: String)
     }
 
-    public func getRemotePKPass(from pkpassUrl: String, completion: @escaping (Result<Data, Error>) -> Void) {
-        self.networker.getPKPass(from: pkpassUrl) { (result: Result<Data, Error>) in
+}
+
+public extension PassLibrary {
+    func getRemotePKPass(from pkpassUrl: String, completion: @escaping (Result<Data, Error>) -> Void) {
+        guard let url = URL(string: pkpassUrl) else { return }
+        self.networker.requestData(from: url) { (result: Result<Data, Error>) in
             completion(result)
         }
     }
 
-    public func presentAddPKPassViewController(window: UIWindow?, pkpassData: Data) throws {
+    func presentAddPKPassViewController(window: UIWindow?, pkpassData: Data) throws {
         var addPKPassViewController: PKAddPassesViewController?
         do {
             addPKPassViewController = try self.setupPKAddPassViewController(data: pkpassData)
@@ -48,7 +53,9 @@ public final class PassLibrary {
         viewControllerToPresent.modalPresentationStyle = .pageSheet
         rootViewContoller.present(viewControllerToPresent, animated: true, completion: nil)
     }
+}
 
+private extension PassLibrary {
     private func setupPKAddPassViewController(data: Data) throws -> PKAddPassesViewController {
         var pkpass: PKPass?
         do {
@@ -64,5 +71,4 @@ public final class PassLibrary {
         }
         return addPKPassViewController
     }
-
 }

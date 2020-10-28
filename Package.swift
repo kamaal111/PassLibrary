@@ -13,11 +13,13 @@ let package = Package(
             name: "PassLibrary",
             targets: ["PassLibrary"])
     ],
-    dependencies: [],
+    dependencies: [
+        .package(url: "https://github.com/kamaal111/XiphiasNet", from: "3.0.0")
+    ],
     targets: [
         .target(
             name: "PassLibrary",
-            dependencies: []),
+            dependencies: ["XiphiasNet"]),
         .testTarget(
             name: "PassLibraryTests",
             dependencies: ["PassLibrary"]),
