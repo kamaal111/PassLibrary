@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "XiphiasNet",
+        "repositoryURL": "https://github.com/kamaal111/XiphiasNet",
+        "state": {
+          "branch": null,
+          "revision": "b7d03948b7d7757612ce0338d386718465b0f2ab",
+          "version": "3.0.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
