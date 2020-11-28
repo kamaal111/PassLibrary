@@ -1,6 +1,0 @@
-framework module Pods_PassLibrary_PassLibraryTests {
-  umbrella header "Pods-PassLibrary-PassLibraryTests-umbrella.h"
-
-  export *
-  module * { export * }
-}
