@@ -4,15 +4,6 @@ A library to open PKPasses
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/93f62ad927354005bace45e6bff5346f)](https://www.codacy.com/manual/kamaal111/PassLibrary?utm_source=github.com&utm_medium=referral&utm_content=kamaal111/PassLibrary&utm_campaign=Badge_Grade)
 
-| branch  | status                                                                                        |
-| ------- | --------------------------------------------------------------------------------------------- |
-| master  | ![CI](https://github.com/kamaal111/PassLibrary/workflows/CI/badge.svg?branch=master)          |
-| develop | ![CI](https://github.com/kamaal111/PassLibrary/workflows/CI/badge.svg?branch=develop)         |
-| v2.0.1  | ![CI](https://github.com/kamaal111/PassLibrary/workflows/CI/badge.svg?branch=release%2F2.0.0) |
-| v2.0.0  | ![CI](https://github.com/kamaal111/PassLibrary/workflows/CI/badge.svg?branch=release%2F2.0.0) |
-| v1.1.0  | ![CI](https://github.com/kamaal111/PassLibrary/workflows/CI/badge.svg?branch=release%2F1.1.0) |
-| v1.0.0  | ![CI](https://github.com/kamaal111/PassLibrary/workflows/CI/badge.svg?branch=release%2F1.0.0) |
-
 ## Installation
 
 ### Swift Package Manager
@@ -28,9 +19,9 @@ A library to open PKPasses
 import PassLibrary
 
 func action() {
+    guard let url = URL(string: "https://server.api/pass/123") else { return }
     let passLibrary = PassLibrary() // From PassLibrary
-    let urlPath = "https://server.api/pass/123"
-    passLibrary.getRemotePKPass(from: urlPath) { (result: Result<Data, Error>) in
+    passLibrary.getRemotePKPass(from: url) { (result: Result<Data, Error>) in
         switch result {
         case .failure(let failure):
             // Handle failure appropriately
@@ -43,7 +34,6 @@ func action() {
                     try passLibrary.presentAddPKPassViewController(window: sceneDelegate.window, pkpassData: pkpassData)
                 } catch {
                     // Handle thrown error appropriately
-                    print(error.localizedDescription)
                 }
             }
         }
@@ -57,9 +47,9 @@ func action() {
 import PassLibrary
 
 func action() {
+    guard let url = URL(string: "https://server.api/pass/123") else { return }
     let passLibrary = PassLibrary() // From PassLibrary
-    let urlPath = "https://server.api/pass/123"
-    passLibrary.getRemotePKPass(from: urlPath) { (result: Result<Data, Error>) in
+    passLibrary.getRemotePKPass(from: url) { (result: Result<Data, Error>) in
         switch result {
         case .failure(let failure):
             // Handle failure appropriately
@@ -71,7 +61,6 @@ func action() {
                     try passLibrary.presentAddPKPassViewController(window: keyWindow, pkpassData: pkpassData)
                 } catch {
                     // Handle thrown error appropriately
-                    print(error.localizedDescription)
                 }
             }
         }
@@ -103,24 +92,28 @@ class RNPassLibrary: NSObject {
     }
 
     @objc
-    func getRemotePKPassAndPresentPKPassView(_ url: String,
+    func getRemotePKPassAndPresentPKPassView(_ urlString: String,
                                             resolver resolve: @escaping RCTPromiseResolveBlock,
                                             rejecter reject: @escaping RCTPromiseRejectBlock) {
-        self.passLibrary.getRemotePKPass(from: url) { (result: Result<Data, Error>) in
+        guard let pkPassUrl = URL(string: urlString) else {
+            // Handle with rejecter
+            return
+        }
+        self.passLibrary.getRemotePKPass(from: pkPassUrl) { (result: Result<Data, Error>) in
             switch result {
             case .failure(let failure):
-                reject("error", failure.localizedDescription, NSError(domain: failure.localizedDescription, code: 400, userInfo: nil))
+                reject("error", failure.localizedDescription, failure)
             case .success(let pkpassData):
                 DispatchQueue.main.async {
                     guard let keyWindow = UIApplication.shared.keyWindow else {
-                        reject("error", "Could not get key window", NSError(domain: "Could not get key window", code: 400, userInfo: nil))
+                        // Handle with rejecter
                         return
                     }
                     do {
                         try self.passLibrary.presentAddPKPassViewController(window: keyWindow, pkpassData: pkpassData)
                         resolve(true)
                     } catch {
-                        reject("error", error.localizedDescription, NSError(domain: error.localizedDescription, code: 400, userInfo: nil))
+                        reject("error", error.localizedDescription, error)
                     }
                 }
             }
@@ -129,7 +122,7 @@ class RNPassLibrary: NSObject {
 
     @objc
     static func requiresMainQueueSetup() -> Bool {
-        return true
+        true
     }
 
 }
@@ -167,7 +160,6 @@ const onPress = async () => {
       await RNPassLibrary.getRemotePKPassAndPresentPKPassView(url);
     } catch (error) {
       // Handle thrown error appropriately
-      console.log("error", error);
     }
   }
 };
