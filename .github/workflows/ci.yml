@@ -18,6 +18,7 @@ jobs:
       - uses: actions/checkout@v1
       - name: Build and Test
         run: |
+          pod install
           set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace "${workspace}" -scheme "${scheme}" -destination "${destination}" | xcpretty || exit 1
         env:
           destination: ${{ matrix.destination }}
