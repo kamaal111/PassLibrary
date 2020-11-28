@@ -9,8 +9,7 @@ import PassKit
 import UIKit
 import XiphiasNet
 
-public final class PassLibrary {
-
+public struct PassLibrary {
     private let networker: XiphiasNetable
 
     internal init(networker: XiphiasNetable = XiphiasNet()) {
@@ -20,55 +19,62 @@ public final class PassLibrary {
     public init() {
         self.networker = XiphiasNet()
     }
-
-    public enum PassLibraryError: Error {
-        case failedToCreatePKPass(message: String)
-        case failedToCreateVC(message: String)
-        case failedToLoadRootVC(message: String)
-    }
-
 }
 
 public extension PassLibrary {
     func getRemotePKPass(from pkpassUrl: String, completion: @escaping (Result<Data, Error>) -> Void) {
-        guard let url = URL(string: pkpassUrl) else { return }
-        self.networker.requestData(from: url) { (result: Result<Data, Error>) in
-            completion(result)
+        guard let url = URL(string: pkpassUrl) else {
+            completion(.failure(PassLibraryError.urlIsNil))
+            return
         }
+        _getRemotePKPass(from: url, completion: completion)
     }
 
+    func getRemotePKPass(from pkpassUrl: URL, completion: @escaping (Result<Data, Error>) -> Void) {
+        _getRemotePKPass(from: pkpassUrl, completion: completion)
+    }
+
+
     func presentAddPKPassViewController(window: UIWindow?, pkpassData: Data) throws {
-        var addPKPassViewController: PKAddPassesViewController?
-        do {
-            addPKPassViewController = try self.setupPKAddPassViewController(data: pkpassData)
-        } catch {
-            throw error
-        }
-        guard let viewControllerToPresent = addPKPassViewController else {
-            throw PassLibraryError.failedToCreateVC(message: "Failed to create add pass view controller")
+        guard let addPKPassViewController = try setupPKAddPassViewController(data: pkpassData) else {
+            throw PassLibraryError.createVC
         }
         guard let rootViewContoller = window?.rootViewController else {
-            throw PassLibraryError.failedToLoadRootVC(message: "Failed to load root view controller")
+            throw PassLibraryError.loadRootVC
         }
-        viewControllerToPresent.modalPresentationStyle = .pageSheet
-        rootViewContoller.present(viewControllerToPresent, animated: true, completion: nil)
+        addPKPassViewController.modalPresentationStyle = .pageSheet
+        rootViewContoller.present(addPKPassViewController, animated: true, completion: nil)
+    }
+}
+
+public extension PassLibrary {
+    enum PassLibraryError: Error {
+        case createVC
+        case loadRootVC
+        case urlIsNil
+    }
+}
+
+extension PassLibrary.PassLibraryError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .createVC:
+            return "Failed to create add pass view controller"
+        case .loadRootVC:
+            return "Failed to load root view controller"
+        case .urlIsNil:
+            return "URL evaluates to nil"
+        }
     }
 }
 
 private extension PassLibrary {
-    private func setupPKAddPassViewController(data: Data) throws -> PKAddPassesViewController {
-        var pkpass: PKPass?
-        do {
-            pkpass = try PKPass(data: data)
-        } catch {
-            throw PassLibraryError.failedToCreatePKPass(message: error.localizedDescription)
-        }
-        guard pkpass != nil else {
-            throw PassLibraryError.failedToCreatePKPass(message: "Could not unwrap pkpass")
-        }
-        guard let addPKPassViewController = PKAddPassesViewController(pass: pkpass!) else {
-            throw PassLibraryError.failedToCreateVC(message: "Failed to create add pass view controller")
-        }
-        return addPKPassViewController
+    private func _getRemotePKPass(from pkpassUrl: URL, completion: @escaping (Result<Data, Error>) -> Void) {
+        networker.requestData(from: pkpassUrl, completion: completion)
+    }
+
+    private func setupPKAddPassViewController(data: Data) throws -> PKAddPassesViewController? {
+        let pkpass = try PKPass(data: data)
+        return PKAddPassesViewController(pass: pkpass)
     }
 }
