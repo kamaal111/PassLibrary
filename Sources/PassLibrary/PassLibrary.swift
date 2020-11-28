@@ -36,7 +36,9 @@ public extension PassLibrary {
 
 
     func presentAddPKPassViewController(window: UIWindow?, pkpassData: Data) throws {
-        let addPKPassViewController = try self.setupPKAddPassViewController(data: pkpassData)
+        guard let addPKPassViewController = try setupPKAddPassViewController(data: pkpassData) else {
+            throw PassLibraryError.createVC
+        }
         guard let rootViewContoller = window?.rootViewController else {
             throw PassLibraryError.loadRootVC
         }
@@ -68,16 +70,11 @@ extension PassLibrary.PassLibraryError: LocalizedError {
 
 private extension PassLibrary {
     private func _getRemotePKPass(from pkpassUrl: URL, completion: @escaping (Result<Data, Error>) -> Void) {
-        networker.requestData(from: pkpassUrl) { (result: Result<Data, Error>) in
-            completion(result)
-        }
+        networker.requestData(from: pkpassUrl, completion: completion)
     }
 
-    private func setupPKAddPassViewController(data: Data) throws -> PKAddPassesViewController {
+    private func setupPKAddPassViewController(data: Data) throws -> PKAddPassesViewController? {
         let pkpass = try PKPass(data: data)
-        guard let addPKPassViewController = PKAddPassesViewController(pass: pkpass) else {
-            throw PassLibraryError.createVC
-        }
-        return addPKPassViewController
+        return PKAddPassesViewController(pass: pkpass)
     }
 }
