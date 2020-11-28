@@ -1,0 +1,6 @@
+framework module Pods_PassLibrary {
+  umbrella header "Pods-PassLibrary-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,6 @@
+framework module XiphiasNet {
+  umbrella header "XiphiasNet-umbrella.h"
+
+  export *
+  module * { export * }
+}
