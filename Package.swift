@@ -14,7 +14,7 @@ let package = Package(
             targets: ["PassLibrary"])
     ],
     dependencies: [
-        .package(url: "https://github.com/kamaal111/XiphiasNet", from: "3.0.3")
+        .package(url: "https://github.com/kamaal111/XiphiasNet", from: "3.0.4")
     ],
     targets: [
         .target(
