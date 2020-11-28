@@ -11,6 +11,22 @@ A library to open PKPasses
 - In your XCode Project select File > Swift Packages > Add Package Dependency and enter `https://github.com/kamaal111/PassLibrary`
 - Select desired version
 
+### Cocoa Pods
+
+- You want to add pod 'PassLibrary', '~> 2.1' similar to the following to your Podfile:
+
+```ruby
+target 'MyApp' do
+  pod 'PassLibrary', '~> 2.1'
+end
+```
+
+- Then run a pod install inside your terminal
+
+```bash
+pod install
+```
+
 ## Usage
 
 ### With SceneDelegate
