@@ -11,15 +11,15 @@ jobs:
     runs-on: macos-latest
     strategy:
       matrix:
-        workspace: [".swiftpm/xcode/package.xcworkspace"]
+        workspace: ["PassLibrary.xcworkspace"]
         scheme: ["PassLibrary"]
-        destination: ["platform=iOS Simulator,name=iPhone 11 Pro Max"]
+        destination: ["platform=iOS Simulator,name=iPhone 11"]
     steps:
       - uses: actions/checkout@v1
       - name: Build and Test
         run: |
-          set -o pipefail && xcodebuild test -workspace "${workspace}" -scheme "${scheme}" -destination "${destination}" | xcpretty
+          set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace "${workspace}" -scheme "${scheme}" -destination "${destination}" | xcpretty || exit 1
         env:
           destination: ${{ matrix.destination }}
           scheme: ${{ matrix.scheme }}
-          project: ${{ matrix.project }}
+          workspace: ${{ matrix.workspace }}
