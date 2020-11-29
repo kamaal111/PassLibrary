@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "PassLibrary"
-  spec.version      = "2.1.1"
+  spec.version      = "2.1.2"
   spec.summary      = "Swift package to open PKPasses in your iOS app"
 
   spec.description  = <<-DESC
