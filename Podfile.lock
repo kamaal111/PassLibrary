@@ -1,5 +1,5 @@
 PODS:
-  - XiphiasNet (3.0.4)
+  - XiphiasNet (3.0.5)
 
 DEPENDENCIES:
   - XiphiasNet (~> 3.0.4)
@@ -9,8 +9,8 @@ SPEC REPOS:
     - XiphiasNet
 
 SPEC CHECKSUMS:
-  XiphiasNet: 9964a6084830bf11a1bd31daf48f623895eed196
+  XiphiasNet: 6ef4010ec8e41b0fc596c4fece50bc7d64568659
 
-PODFILE CHECKSUM: 87f1ac9cba969f14bb2f7ea55178f5e705ed719f
+PODFILE CHECKSUM: b655a859e9ac109ff0bb155c10c4a6fd5d8a3c09
 
 COCOAPODS: 1.10.0
