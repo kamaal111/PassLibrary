@@ -13,13 +13,9 @@ public struct PassLibrary {
 }
 
 public extension PassLibrary {
-    func getRemotePKPass(from pkpassUrl: URL) throws -> Data {
-        try Data(contentsOf: pkpassUrl, options: .mappedIfSafe)
-    }
-
-
-    func presentAddPKPassViewController(window: UIWindow?, pkpassData: Data) throws {
-        guard let addPKPassViewController = try setupPKAddPassViewController(data: pkpassData) else {
+    func presentAddPKPassViewController(_ window: UIWindow?, from pkpassUrl: URL) throws {
+        let pkpass = try getRemotePKPass(from: pkpassUrl)
+        guard let addPKPassViewController = PKAddPassesViewController(pass: pkpass) else {
             throw PassLibraryError.createVC
         }
         guard let rootViewContoller = window?.rootViewController else {
@@ -29,8 +25,9 @@ public extension PassLibrary {
         rootViewContoller.present(addPKPassViewController, animated: true, completion: nil)
     }
 
-    func presentAddPKPassViewController(viewController: UIViewController, pkpassData: Data) throws {
-        guard let addPKPassViewController = try setupPKAddPassViewController(data: pkpassData) else {
+    func presentAddPKPassViewController(_ viewController: UIViewController, from pkpassUrl: URL) throws {
+        let pkpass = try getRemotePKPass(from: pkpassUrl)
+        guard let addPKPassViewController = PKAddPassesViewController(pass: pkpass) else {
             throw PassLibraryError.createVC
         }
         addPKPassViewController.modalPresentationStyle = .pageSheet
@@ -45,6 +42,14 @@ public extension PassLibrary {
     }
 }
 
+private extension PassLibrary {
+    private func getRemotePKPass(from pkpassUrl: URL) throws -> PKPass {
+        let data = try Data(contentsOf: pkpassUrl, options: .mappedIfSafe)
+        let pkpass = try PKPass(data: data)
+        return pkpass
+    }
+}
+
 extension PassLibrary.PassLibraryError: LocalizedError {
     public var errorDescription: String? {
         switch self {
@@ -53,12 +58,5 @@ extension PassLibrary.PassLibraryError: LocalizedError {
         case .loadRootVC:
             return "Failed to load root view controller"
         }
-    }
-}
-
-private extension PassLibrary {
-    private func setupPKAddPassViewController(data: Data) throws -> PKAddPassesViewController? {
-        let pkpass = try PKPass(data: data)
-        return PKAddPassesViewController(pass: pkpass)
     }
 }
