@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "PassLibrary"
-  spec.version      = "2.1.2"
+  spec.version      = "3.0.0"
   spec.summary      = "Swift package to open PKPasses in your iOS app"
 
   spec.description  = <<-DESC
@@ -17,6 +17,5 @@ Swift package to open PKPasses in your iOS app.
 
   spec.source        = { :git => "https://github.com/kamaal111/PassLibrary.git", :tag => "#{spec.version}" }
   spec.source_files  = "Sources/PassLibrary/**/*.{h,m,swift}"
-  spec.dependency 'XiphiasNet', '~> 3.0.5'
 
 end
