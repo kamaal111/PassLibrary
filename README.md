@@ -29,64 +29,55 @@ pod install
 
 ## Usage
 
-### With SceneDelegate
+### From a UIKit ViewController
 
 ```swift
+...
 import PassLibrary
 
 func action() {
     guard let url = URL(string: "https://server.api/pass/123") else { return }
-    let passLibrary = PassLibrary() // From PassLibrary
-    passLibrary.getRemotePKPass(from: url) { (result: Result<Data, Error>) in
-        switch result {
-        case .failure(let failure):
-            // Handle failure appropriately
-            print(failure)
-        case .success(let pkpassData):
-            DispatchQueue.main.async {
-                guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+    let passLibrary = PassLibrary()
+    passLibrary.presentAddPKPassViewController(self, from: url)
+}
+```
+
+### From SwiftUI
+
+Use this library [PassLibrarySUI](https://github.com/kamaal111/PassLibrarySUI)
+
+### With SceneDelegate
+
+```swift
+...
+import PassLibrary
+
+func action() {
+    guard let url = URL(string: "https://server.api/pass/123") else { return }
+    let passLibrary = PassLibrary()
+    guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
                     let sceneDelegate = windowScene.delegate as? SceneDelegate else { return }
-                do {
-                    try passLibrary.presentAddPKPassViewController(window: sceneDelegate.window, pkpassData: pkpassData)
-                } catch {
-                    // Handle thrown error appropriately
-                }
-            }
-        }
-    }
+    passLibrary.presentAddPKPassViewController(sceneDelegate.window, from: url)
 }
 ```
 
 ### With UIApplication
 
 ```swift
+...
 import PassLibrary
 
 func action() {
     guard let url = URL(string: "https://server.api/pass/123") else { return }
-    let passLibrary = PassLibrary() // From PassLibrary
-    passLibrary.getRemotePKPass(from: url) { (result: Result<Data, Error>) in
-        switch result {
-        case .failure(let failure):
-            // Handle failure appropriately
-            print(failure)
-        case .success(let pkpassData):
-            DispatchQueue.main.async {
-                guard let keyWindow = UIApplication.shared.keyWindow else { return }
-                do {
-                    try passLibrary.presentAddPKPassViewController(window: keyWindow, pkpassData: pkpassData)
-                } catch {
-                    // Handle thrown error appropriately
-                }
-            }
-        }
-    }
+    let passLibrary = PassLibrary()
+    let keyWindow = UIApplication.shared.keyWindow
+    passLibrary.presentAddPKPassViewController(keyWindow, from: url)
 }
 ```
 
 MIT License
 
-Copyright (c) 2020 Kamaal Farah
+Copyright (c) 2020-2021 Kamaal Farah
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
