@@ -17,7 +17,7 @@ A library to open PKPasses
 
 ```ruby
 target 'MyApp' do
-  pod 'PassLibrary', '~> 2.1'
+  pod 'PassLibrary', '~> 3.0'
 end
 ```
 
