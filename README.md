@@ -13,7 +13,7 @@ A library to open PKPasses
 
 ### Cocoa Pods
 
-- You want to add pod 'PassLibrary', '~> 2.1' similar to the following to your Podfile:
+- You want to add pod 'PassLibrary', '~> 3.0' similar to the following to your Podfile:
 
 ```ruby
 target 'MyApp' do
